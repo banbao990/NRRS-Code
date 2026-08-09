@@ -1,0 +1,34 @@
+{
+    "global": {
+        "name": "sponza-caustic"
+    },
+    "model": "common/assets/scenes-nrrs/sponza-caustic/scene.gltf",
+    "resolution": [
+        1280,
+        720
+    ],
+    "scene": {
+        "camera": {
+            "mData": {
+                "aspectRatio": 1.7777777910232544,
+                "focalDistance": 10.0,
+                "focalLength": 21.0,
+                "lensRadius": 0.0,
+                "shutterOpen": 0.0,
+                "shutterTime": 0.0
+            }
+        },
+        "cameraController": {
+            "mData": {
+                "pitch": -0.4260554015636444,
+                "radius": 0.10000000149011612,
+                "target": [
+                    -3.0867624282836914,
+                    2.1899030208587646,
+                    0.46117499470710754
+                ],
+                "yaw": 1.2823786735534668
+            }
+        }
+    }
+}

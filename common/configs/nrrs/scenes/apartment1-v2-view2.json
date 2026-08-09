@@ -1,0 +1,45 @@
+{
+    "global": {
+        "name": "apartment1-v2-view2"
+    },
+    "model": "common/assets/scenes-nrrs/apartment1-v2/scene.gltf",
+    "resolution": [
+        1280,
+        720
+    ],
+    "scene": {
+        "camera": {
+            "mData": {
+                "aspectRatio": 1.7777777910232544,
+                "focalDistance": 810.76904296875,
+                "focalLength": 33.529998779296875,
+                "lensRadius": 0.0,
+                "shutterOpen": 0.0,
+                "shutterTime": 0.0
+            }
+        },
+        "cameraController": {
+            "mData": {
+                "pitch": -0.2024444043636322,
+                "radius": 520.76904296875,
+                "target": [
+                    271.75323486328125,
+                    -2.03017520904541,
+                    -826.4203491210938
+                ],
+                "yaw": 0.7136316299438477
+            }
+        },
+        "model": [
+            {
+                "name": "environment",
+                "params": {
+                    "scale": 0.5,
+                    "texture": "common/assets/textures/sky.exr",
+                    "type": "infinite"
+                },
+                "type": "light"
+            }
+        ]
+    }
+}

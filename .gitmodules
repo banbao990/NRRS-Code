@@ -1,0 +1,12 @@
+[submodule "src/kiraray"]
+	path = src/kiraray
+	url = https://github.com/banbao990/KiRaRay.git
+	branch = use-bb
+[submodule "src/ext/tcnn"]
+	path = src/ext/tcnn
+	url = https://github.com/banbao990/tiny-cuda-nn.git
+	branch = use-bb
+[submodule "scripts/exps/figure-gen"]
+	path = scripts/exps/figure-gen
+	url = https://github.com/banbao990/figure-gen.git
+	branch = paper-release

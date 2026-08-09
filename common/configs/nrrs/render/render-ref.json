@@ -1,0 +1,41 @@
+{
+    "global": {
+        "reference_dir": "common/assets/scenes-nrrs/references/"
+    },
+    "renderer": {
+        "ui_alpha_off": true,
+        "lock_camera": true
+    },
+    "passes": [
+        {
+            "enable": true,
+            "name": "SimpleWavefrontPathTracer",
+            "params": {
+                "nee": true,
+                "rr": 1.0,
+                "max_depth": 6
+            }
+        },
+        {
+            "enable": true,
+            "name": "AccumulatePass",
+            "params": {
+                "precision": "double",
+                "save_every": 20000,
+                "exit_on_finish": true,
+                "task": {
+                    "type": "spp",
+                    "value": 200000
+                }
+            }
+        },
+        {
+            "enable": false,
+            "name": "ToneMappingPass",
+            "params": {
+                "exposure": 1,
+                "operator": "lin2srgb"
+            }
+        }
+    ]
+}

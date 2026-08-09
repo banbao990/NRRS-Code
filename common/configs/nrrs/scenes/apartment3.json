@@ -1,0 +1,34 @@
+{
+    "global": {
+        "name": "apartment3"
+    },
+    "model": "common/assets/scenes-nrrs/apartment3/scene.gltf",
+    "resolution": [
+        1280,
+        720
+    ],
+    "scene": {
+        "camera": {
+            "mData": {
+                "aspectRatio": 1.7777777910232544,
+                "focalDistance": 0.9780610799789429,
+                "focalLength": 21.75,
+                "lensRadius": 0.0,
+                "shutterOpen": 0.0,
+                "shutterTime": 0.0
+            }
+        },
+        "cameraController": {
+            "mData": {
+                "pitch": -0.05561089515686035,
+                "radius": 6.009348392486572,
+                "target": [
+                    20.629667282104492,
+                    5.383578300476074,
+                    -10.346738815307617
+                ],
+                "yaw": -1.6965227127075195
+            }
+        }
+    }
+}

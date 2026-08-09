@@ -1,0 +1,35 @@
+.vs
+.vscode
+# CMakeSettings.json
+
+imgui.ini
+/build/
+out/
+
+common/assets/scenes
+common/configs/references*
+common/images
+common/outputs
+
+*.html
+*.pptx
+*.pdf
+*.pyc
+
+
+/common/configs/saved_config.json
+/common/new/
+/common/exps/
+/common/configs/nn/nrrs/simple-test.json
+/common/configs/nn/nrrs/2net-simple-test.json
+/notes/exp/imgs
+# /common/assets/scenes-nrrs
+/common/assets/scenes-nrrs/noenv/apartment2/scene.bin
+
+/common/assets/scenes_blender
+/common/assets/scenes-old
+/common/assets/scene-test
+/common/configs/nrrs/nrrs/2net-simple-test.json
+
+/scripts/exps/images
+/scripts/figures/images/

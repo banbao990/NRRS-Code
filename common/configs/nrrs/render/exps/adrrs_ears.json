@@ -1,0 +1,81 @@
+{
+    "renderer": {
+        "ui_alpha_off": true,
+        "lock_camera": true
+    },
+
+    "global": {
+        // run_experiment
+        "exp_train_time": 60,
+        "exp_inference_time": 10,
+        "exp_on": true,
+        "exp_output_file": "common/exps/result.exr"
+    },
+
+    "passes": [
+        {
+            "enable": true,
+            "name": "EARSPathTracer",
+
+            "params": {
+                "nee": true,
+                "rr": 1.0,
+                "max_depth": 6,
+                "spp": 1,
+
+                //"rrs_method": "adrrs",
+                //"rrs_method": "ears",
+                "rrs_method": "nrrs+",
+                //"rrs_method": "nrrs",
+                //"rrs_method": "adn", 
+
+                "nrrs_config": "common/configs/nrrs/nrrs/2net-simple.json",
+
+                // NRRS
+                "rrs_clamp_min": 0.05,
+                "rrs_clamp_max": 20.0,
+                "rrs_normalize_rate": 0.85,
+                "rrs_normalize_use_ceil": true, // true: do not use rrs_normalize_rate, false: use rrs_normalize_rate
+                "donnot_normalize_when_less_than_one": true, // to support deeper depth
+
+                "use_acc_buffer_not_denoised_ears": true,
+                "max_rate_for_path_nodes_buffer": 10,
+
+                // EARS
+                "spp_per_iter": 64,
+                "enable_rrs_after_pre_training": true,
+                "auto_build_octree": true,
+                "outlier_number": 10000, // 0.001% x 1280 x 720 = 9.216, 10 in original impl, however bad
+                "pre_training_iter": 3, // bathroom=3
+                "twice_iter_interval": 1,
+                "octree_max_memory": 24,
+                "keep_last_iter_statistics": true, // incremental training
+
+                "denoise_on": true,
+                "denoise_params": {
+                    "enable": true,
+                    "denoisepass_params": {
+                        "prepareGeometryBufferOutside": true,
+                        "useGeometry": true
+                    }
+                },
+
+                "batch_per_frame": 20
+            }
+        },
+        {
+            "enable": true,
+            "name": "ErrorMeasurePass",
+            "params": {
+                "showReferenceImage": true,
+                "metric": "rel_mse",
+                "interval": 10,
+                "continuous": true,
+                "log": false,
+                "vJetMax": 0.1,
+                "vJetMaxAdjusted": 5.0,
+                "exp_save": true
+            }
+        }
+    ]
+}

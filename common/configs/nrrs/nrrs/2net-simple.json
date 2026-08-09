@@ -1,0 +1,293 @@
+{
+    "nn": {
+        "clamp_on": true,
+        "clamp_max": 10.0,
+        "train_sigma": false,
+        "show_loss_index": 3, // 0 means don't show, network.cpp::ShowLossType
+
+        "relief_error_scale": false, // when after long training and error is not going down, we reduce the error scale
+
+        // single head : skip two_head_net
+        // two head    : skip loss, network
+        "level0": {
+            "loss": {
+                "otype": "NRRS_LL2"
+            },
+            "optimizer": {
+                "otype": "Ema",
+                "decay": 0.95,
+                "nested": {
+                    "otype": "Adam",
+                    "learning_rate": 5e-3,
+                    "beta1": 0.9,
+                    "beta2": 0.99,
+                    "epsilon": 1e-15,
+                    "l2_reg": 3e-6,
+                    "adabound": false
+                }
+            },
+            "encoding": {
+                // simple input: pos(3) + dir(2) + roughness(1)
+                "otype": "Composite",
+                "nested": [
+                    {
+                        "n_dims_to_encode": 3, // Spatial dims
+
+                        //"otype": "TriangleWave",
+                        //"n_frequencies": 12
+
+                        //"otype": "DenseGrid",
+                        //"n_levels": 8,
+                        //"n_features_per_level": 4,
+                        //"base_resolution": 8,
+                        //"per_level_scale": 1.405,
+                        //"interpolation": "Smoothstep"
+
+                        "otype": "HashGrid",
+                        "n_levels": 8,
+                        "n_features_per_level": 2,
+                        "log2_hashmap_size": 19,
+                        "base_resolution": 16,
+                        "per_level_scale": 2.0
+                    },
+                    {
+                        "n_dims_to_encode": 2, // Directional dims
+                        "otype": "OneBlob",
+                        "n_bins": 4
+
+                        //"otype": "Identity"
+                    },
+                    // left: 32 - (2*8+2*4) = 8
+                    {
+                        "n_dims_to_encode": 1, // roughness dim
+                        //"otype": "Identity"
+                        "otype": "OneBlob",
+                        "n_bins": 8
+                    }
+                ]
+            },
+            "n_neurons": 32, // 64
+            "network": {
+                "otype": "FullyFusedMLP",
+                "activation": "LeakyReLU",
+                "output_activation": "None",
+                "n_hidden_layers": 3 // 7 in NRC paper
+            },
+            "two_head_net_part_share": {
+                //"internal_dims": 32, // read from `n_neurons`
+                "base_net": {
+                    "otype": "FullyFusedMLP",
+                    "n_hidden_layers": 1,
+                    "activation": "LeakyReLU",
+                    "output_activation": "LeakyReLU"
+                },
+                "tail_net": {
+                    "otype": "FullyFusedMLP",
+                    "n_hidden_layers": 1,
+                    "activation": "LeakyReLU",
+                    "output_activation": "None"
+                },
+                "loss1": {
+                    "otype": "NRRS_TwoHead_L"
+                },
+                "loss2": {
+                    "otype": "NRRS_TwoHead_L2"
+                }
+            },
+            "two_head_net_all_self": {
+                "net": {
+                    "otype": "FullyFusedMLP",
+                    "n_hidden_layers": 2,
+                    "activation": "LeakyReLU",
+                    "output_activation": "None"
+                },
+                "loss1": {
+                    "otype": "NRRS_TwoHead_L"
+                },
+                "loss2": {
+                    "otype": "NRRS_TwoHead_L2"
+                }
+            },
+            "two_head_net_just_encoding": {
+                "net": {
+                    "otype": "FullyFusedMLP",
+                    "n_hidden_layers": 2,
+                    "activation": "LeakyReLU",
+                    "output_activation": "None"
+                },
+                "loss1": {
+                    "otype": "NRRS_TwoHead_L"
+                },
+                "loss2": {
+                    "otype": "NRRS_TwoHead_L2"
+                }
+            }
+        },
+
+        "level1": {
+            "loss": {
+                "otype": "NRRS_RRS",
+                "clamp_pixel_error": false,
+                //"pixel_error_multiply_samples": true,
+
+                // k = 2
+                //"gamma1": 0.5,
+                //"gamma2": 0.5,
+                //"gamma3": 0.5,
+
+                // great for bathroom-zoom1 scene
+                //"gamma1": 0.01,
+                //"gamma2": 1.0,
+                //"gamma3": 0.1,
+                //"gamma4": 0.0,
+
+                // *** new params: bathroom-zoom1 scene
+                "gamma1": 0.01,
+                "gamma2": 0.05,
+                "gamma3": 0.0,
+                "gamma4": 0.01,
+
+                // *sqrt(f)
+                //"gamma1": 0.05,
+                //"gamma2": 1.00,
+                //"gamma3": 0.0,
+                //"gamma4": 0.01,
+
+                // bathroom-zoom1 scene, relative rrs
+                //"gamma1": 0.001,
+                //"gamma2": 0.01,
+                //"gamma3": 0.0,
+                //"gamma4": 0.1,
+
+                // bathroom-zoom1 scene, relative rrs(<1), rrs(>1)
+                // slightly better than above
+                //"gamma1": 0.0001,
+                //"gamma2": 0.01,
+                //"gamma3": 0.0,
+                //"gamma4": 0.1,
+
+                "step": 1
+            },
+            "optimizer": {
+                "otype": "Ema",
+                "decay": 0.95,
+                "nested": {
+                    "otype": "Adam",
+                    "learning_rate": 5e-4,
+                    "beta1": 0.9,
+                    "beta2": 0.99,
+                    "epsilon": 1e-15,
+                    "l2_reg": 3e-6,
+                    "adabound": false
+                }
+            },
+            //"encoding": {
+            //    "otype": "Composite",
+            //    "nested": [
+            //        {
+            //            // L            (3)
+            //            // L2/sigma     (3)
+            //            // throughput   (3)
+            //            // roughness    (1)
+            //            // refMean      (1)
+
+            //            "n_dims_to_encode": 11,
+            //            "otype": "Identity"
+            //        },
+            //        {
+            //            "n_dims_to_encode": 3, // Spatial dims
+
+            //            //"otype": "TriangleWave",
+            //            //"n_frequencies": 12
+
+            //            //"otype": "DenseGrid",
+            //            //"n_levels": 8,
+            //            //"n_features_per_level": 4,
+            //            //"base_resolution": 8,
+            //            //"per_level_scale": 1.405,
+            //            //"interpolation": "Smoothstep"
+
+            //            "otype": "HashGrid",
+            //            "n_levels": 8,
+            //            "n_features_per_level": 2,
+            //            "log2_hashmap_size": 19,
+            //            "base_resolution": 16,
+            //            "per_level_scale": 2.0
+            //        },
+            //        {
+            //            "n_dims_to_encode": 2, // Directional dims
+            //            "otype": "OneBlob",
+            //            "n_bins": 4
+
+            //            //"otype": "Identity"
+            //        }
+            //    ]
+            //},
+            "encoding": {
+                // L            (3)
+                // L2/sigma     (3)
+                // throughput   (3)
+                // roughness    (1)
+                //"n_dims_to_encode": 10,
+
+                // refMean      (1)
+                "n_dims_to_encode": 11,
+
+                // pos(3) + dir(2)
+                //"n_dims_to_encode": 16,
+
+                "otype": "Identity"
+            },
+            "network": {
+                "otype": "FullyFusedMLP",
+                "activation": "LeakyReLU",
+                "output_activation": "None",
+                "n_neurons": 32, // 64
+                "n_hidden_layers": 3 // 7 in NRC paper
+            }
+        },
+
+        "level1_aid": {
+            // the same as level1
+            "loss": {},
+            "optimizer": {},
+            "network": {},
+
+            // different
+            "encoding": {
+                // simple input: pos(3) + dir(2) + roughness(1) + refMean(1) + throughput(3)
+                // after encoding: 8*2 + 2*4 + 1*4 + 1 + 3 = 32
+                "otype": "Composite",
+                "nested": [
+                    {
+                        "n_dims_to_encode": 3, // Spatial dims
+
+                        "otype": "HashGrid",
+                        "n_levels": 8,
+                        "n_features_per_level": 2,
+                        "log2_hashmap_size": 19,
+                        "base_resolution": 16,
+                        "per_level_scale": 2.0
+                    },
+                    {
+                        "n_dims_to_encode": 2, // Directional dims
+                        "otype": "OneBlob",
+                        "n_bins": 4
+
+                        //"otype": "Identity"
+                    },
+                    // left: 32 - (2*8+2*4) = 8
+                    {
+                        "n_dims_to_encode": 1, // roughness dim
+                        "otype": "OneBlob",
+                        "n_bins": 4
+                    },
+                    {
+                        "n_dims_to_encode": 4, // refMean + thp
+                        "otype": "Identity"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "global": {
+        "reference_dir": "common/assets/scenes-nrrs/references/"
+    },
+    "scene_path": "common/configs/nrrs/scenes/noenv_apartment2.json"
+}

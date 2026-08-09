@@ -1,0 +1,85 @@
+flat uint;
+flat Vector3f;
+flat Vector2f;
+flat RGB;
+flat Spectrum;
+flat BSDFType;
+flat int;
+flat float;
+flat PCGSampler;
+flat Light;
+
+struct Ray;
+struct LightSampleContext;
+struct SurfaceInteraction;
+
+struct NRRSRayWorkItem {
+	Ray mRay;
+	LightSampleContext mCtx;
+	float mPdf;
+	Spectrum mThp;
+	BSDFType mBsdfType;
+	uint mDepth;
+	uint mPixelId;
+	int mNodeIdx;
+};
+
+struct NRRSHitLightWorkItem {
+	Light mLight;
+	LightSampleContext mCtx;
+	float mPdf;
+	Vector3f mPos;
+	Vector3f mWo;
+	Vector3f mNormal;
+	Vector2f mUv;
+	Spectrum mThp;
+	BSDFType mBsdfType;
+	uint mDepth;
+	uint mPixelId;
+	int mNodeIdx;
+};
+
+struct NRRSShadowRayWorkItem {
+	Ray mRay;
+	float mMaxT;
+	Spectrum mLi;
+	Spectrum mThp;
+	uint mDepth;
+	uint mPixelId;
+	int mNodeIdx;
+};
+
+struct NRRSScatterRayWorkItem {
+	Spectrum mThp;
+	int mNodeIdx;
+	SurfaceInteraction mIntr;
+	uint mDepth;
+	uint mPixelId;
+	float mRRS;
+};
+
+struct NRRSInferenceWorkItem {
+	uint mScatterQueueIndex;
+	Vector3f mPos;
+	Vector2f mDir;
+	float mRoughness;
+	RGB mThp;
+};
+
+struct NRRSRadianceRecordItem {
+	Spectrum mL;
+	Spectrum mThp;
+	Vector3f mPos;
+	Vector2f mDir;
+	float mRoughness;
+	int mLastNodeIdx;
+	uint mPixelId;
+	float mRRS;
+    float mDepth;
+};
+
+struct NRRSPixelState {
+	Spectrum mL;
+	uint mTrainingSamples;
+	PCGSampler mSampler;
+};

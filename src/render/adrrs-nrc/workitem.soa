@@ -1,0 +1,14 @@
+flat float;
+flat uint;
+flat bool;
+flat Vector2f;
+flat Vector3f;
+
+struct ADNInferenceWorkItem {
+	uint mScatterQueueIndex;
+	Vector3f mPos;
+	Vector2f mDir;
+	bool mIsSpecular;
+	Vector2f mNormal;
+	float mRoughness;
+};

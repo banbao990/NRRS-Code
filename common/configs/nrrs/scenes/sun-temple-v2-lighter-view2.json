@@ -1,0 +1,34 @@
+{
+    "global": {
+        "name": "sun-temple-v2-lighter-view2"
+    },
+    "model": "common/assets/scenes-nrrs/sun-temple-v2/scene-lighter.gltf",
+    "resolution": [
+        1280,
+        720
+    ],
+    "scene": {
+        "camera": {
+            "mData": {
+                "aspectRatio": 1.7777777910232544,
+                "focalDistance": 10.0,
+                "focalLength": 21.0,
+                "lensRadius": 0.0,
+                "shutterOpen": 0.0,
+                "shutterTime": 0.0
+            }
+        },
+        "cameraController": {
+            "mData": {
+                "pitch": 0.0017219483852386475,
+                "radius": 9.963957786560059,
+                "target": [
+                    -0.20457877218723297,
+                    3.9287796020507813,
+                    28.429807662963867
+                ],
+                "yaw": -0.4883405566215515
+            }
+        }
+    }
+}

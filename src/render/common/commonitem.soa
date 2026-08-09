@@ -1,0 +1,5 @@
+flat uint;
+
+struct TidWorkItem {
+	uint mTid;
+};

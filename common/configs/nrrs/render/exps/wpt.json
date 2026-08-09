@@ -1,0 +1,48 @@
+{
+    "renderer": {
+        "ui_alpha_off": true,
+        "lock_camera": true
+    },
+
+    "global": {
+        // run_experiment
+        "exp_train_time": 60,
+        "exp_inference_time": 10,
+        "exp_on": true,
+        "exp_output_file": "common/exps/result.exr"
+    },
+
+    "passes": [
+        {
+            "enable": true,
+            "name": "SimpleWavefrontPathTracer",
+            "params": {
+                "nee": true,
+                "rr": 1.0,
+                "max_depth": 6,
+                "spp": 1,
+
+                //"rrs_method": "adrrs",
+                //"rrs_method": "ears",
+                "rrs_method": "nrrs+",
+                //"rrs_method": "nrrs",
+                //"rrs_method": "adn", 
+            }
+        },
+
+        {
+            "enable": true,
+            "name": "ErrorMeasurePass",
+            "params": {
+                "showReferenceImage": true,
+                "metric": "rel_mse",
+                "interval": 10,
+                "continuous": true,
+                "log": false,
+                "vJetMax": 0.1,
+                "vJetMaxAdjusted": 5.0,
+                "exp_save": true
+            }
+        }
+    ]
+}

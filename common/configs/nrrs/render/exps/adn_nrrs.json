@@ -1,0 +1,69 @@
+{
+    "renderer": {
+        "ui_alpha_off": true,
+        "lock_camera": true
+    },
+    "global": {
+        "exp_train_time": 60,
+        "exp_inference_time": 10,
+        "exp_on": true,
+        "exp_output_file": "D:\\Code\\FRRS\\Kirara2\\scripts\\..\\common/exps\\6\\apartment1_nrrs.exr",
+        "exp_denoise_always": false
+    },
+    "passes": [
+        {
+            "enable": true,
+            "name": "NRRSPathTracer",
+            "params": {
+                "nrrs_config": "common/configs/nrrs/nrrs/2net-simple.json",
+                "nrrs_auto_train": false,
+                "nee": true,
+                "rr": 1.0,
+                "max_depth": 6,
+                "spp": 1,
+                "rrs_method": "nrrs",
+                "rrs_clamp_min": 0.05,
+                "rrs_clamp_max": 20.0,
+                "rrs_normalize_rate": 0.85,
+                "rrs_normalize_use_ceil": true,
+                "donnot_normalize_when_less_than_one": true,
+                "use_acc_buffer_not_denoised_nrrs": true,
+                "ubs_heuristic": false,
+                "ubs_heuristic_mix_method": 2,
+                "rrs_mode": "fixed RR",
+                "max_rate_for_path_nodes_buffer": 10,
+                "blend_weight_for_error": 0.5,
+                "max_depth_to_use_rrs_included": 10,
+                "copy_the_rrs_node": true,
+                "ignore_same_training_data_for_rrs_net": true,
+                "batch_per_frame": 20,
+                "nrrs_denoise_dont_need_albedo": true,
+                "error_image_scale": 1,
+                "denoise_on": true,
+                "denoise_frames": -1,
+                "denoise_params": {
+                    "enable": true,
+                    "denoisepass_params": {
+                        "prepareGeometryBufferOutside": true,
+                        "useGeometry": true
+                    }
+                },
+                "random_offset": 34245
+            }
+        },
+        {
+            "enable": true,
+            "name": "ErrorMeasurePass",
+            "params": {
+                "showReferenceImage": true,
+                "metric": "rel_mse",
+                "interval": 10,
+                "continuous": true,
+                "log": false,
+                "vJetMax": 0.1,
+                "vJetMaxAdjusted": 5.0,
+                "exp_save": true
+            }
+        }
+    ]
+}

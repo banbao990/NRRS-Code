@@ -1,0 +1,46 @@
+{
+    "global": {
+        "name": "san-miguel-view2"
+    },
+    "model": "common/assets/scenes-nrrs/san-miguel/san-miguel.obj",
+    "resolution": [
+        1280,
+        720
+    ],
+    "scene": {
+        "camera": {
+            "mData": {
+                "aspectRatio": 1.7777777910232544,
+                "focalDistance": 1.2414380311965942,
+                "focalLength": 21.0,
+                "lensRadius": 0.0,
+                "shutterOpen": 0.0,
+                "shutterTime": 0.0
+            }
+        },
+        "cameraController": {
+            "mData": {
+                "pitch": -0.2524445652961731,
+                "radius": 0.37009093165397644,
+                "target": [
+                    12.808741569519043,
+                    1.169640064239502,
+                    2.031963348388672
+                ],
+                "yaw": -4.437563896179199
+            }
+        },
+        "model": [
+            {
+                "name": "environment",
+                "params": {
+                    "scale": 5.0,
+                    "texture": "common/assets/textures/snowwhite.jpg",
+                    "type": "infinite"
+                },
+                "type": "light"
+            }
+        ],
+        "spp": 0
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "global": {
+        "name": "tropical_bedroom_cx"
+    },
+    "model": "common/assets/scenes-nrrs/me/tropical_bedroom_cx/TropicalBedroom.gltf",
+    "resolution": [
+        1280,
+        720
+    ],
+    "scene": {
+        "camera": {
+            "mData": {
+                "aspectRatio": 1.7777777910232544,
+                "focalDistance": 10.0,
+                "focalLength": 21.0,
+                "lensRadius": 0.0,
+                "shutterOpen": 0.0,
+                "shutterTime": 0.0
+            }
+        },
+        "cameraController": {
+            "mData": {
+                "pitch": -0.19194439053535461,
+                "radius": 1.5645251274108887,
+                "target": [
+                    -0.26812034845352173,
+                    0.264853835105896,
+                    -0.06451035290956497
+                ],
+                "yaw": -0.8707207441329956
+            }
+        }
+    }
+}
