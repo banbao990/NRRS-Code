@@ -109,3 +109,11 @@ python scripts/exps/main_exps.py --one_pdf --max_depth 6 --curve_skip_seconds 5 
 --- m_max_size = previous_multiple(cuda_memory_info().total, cuda_memory_granularity());
 +++ m_max_size = previous_multiple(cuda_memory_info().total/4, cuda_memory_granularity());
 ```
+
+
+
+## Acknowledgments
+
++ This project is built on [KiRaRay](https://github.com/cuteday/KiRaRay). We thank [cuteday](https://github.com/cuteday) for open-sourcing this excellent rendering framework.
++ The neural network components are implemented using [tiny-cuda-nn](https://github.com/NVlabs/tiny-cuda-nn).
++ The plotting scripts are implemented using [figure-gen](https://github.com/Mira-13/figure-gen).
